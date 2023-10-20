@@ -189,17 +189,17 @@ export const AvailableSizes = [
 ];
 
 export const firebaseConfig = {
-  apiKey: "API_KEY",
-  authDomain: "AUTH_DOMAIN",
-  projectId: "PROJECT_ID",
-  storageBucket: "STROAGE_BUCKET",
-  messagingSenderId: "MESSAGING_SENDER_ID",
-  appId: "APP_ID",
-  measurementId: "MEASUREMENT_ID",
+  apiKey: "AIzaSyAFMulmupVKiIeOlnamQLIhiOaNMmkd2eg",
+  authDomain: "restoorant.firebaseapp.com",
+  projectId: "restoorant",
+  storageBucket: "restoorant.appspot.com",
+  messagingSenderId: "28399513059",
+  appId: "1:28399513059:web:118c7fecd665c17cb544d6",
+  measurementId: "G-QCZM3QJ7VZ"
 };
 
 export const firebaseStroageURL =
-  "YOUR_FIREBASE_STROAGE_URL";
+  "gs://restoorant.appspot.com";
 
 export const addNewAddressFormControls = [
   {

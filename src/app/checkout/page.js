@@ -29,7 +29,7 @@ export default function Checkout() {
   const params = useSearchParams();
 
   const publishableKey =
-    "pk_test_51NMv6ZSC6E6fnyMeRIEb9oEXdGRCC9yrBTT4xWHgcjWOuFcqFiAHErvaS50K1hl5t5WJXVGfLLWxvb705IWJhA3300yCcrMnlM";
+    "pk_live_51MxHj6SFto2MeytWvAMxyVF48BQPNJzt5B5pNZp5I0Hu1zkCNX5CrxmXKdD1ceiKZmJpNziUOfZ4Da7PsI3Ia3Ry00xVb2cbok";
   const stripePromise = loadStripe(publishableKey);
 
   console.log(cartItems);
@@ -123,13 +123,38 @@ export default function Checkout() {
       },
     });
   }
+  function handleCODCheckout() {
+    if (cartItems.length === 0 || !checkoutFormData.shippingAddress) {
+      return;
+    }
+    const orderData = {
+      // Construct your order data here based on the cart items and checkout form data
+      user: user ? user._id : "",
+      shippingAddress: checkoutFormData.shippingAddress,
+      orderItems: cartItems.map((item) => ({
+        qty: 1,
+        product: item.productID,
+      })),
+      paymentMethod: "Cash On Delivery",
+      totalPrice: cartItems.reduce(
+        (total, item) => item.productID.price + total,
+        0
+      ),
+      isPaid: false,
+      isProcessing: false,
+      paidAt: null,
+    };
 
+    createOrder(orderData);
+
+    router.push("/transaction-success"); // Redirect to the transaction success page
+  }
   async function handleCheckout() {
     const stripe = await stripePromise;
 
     const createLineItems = cartItems.map((item) => ({
       price_data: {
-        currency: "usd",
+        currency: "inr",
         product_data: {
           images: [item.productID.imageUrl],
           name: item.productID.name,
@@ -302,6 +327,15 @@ export default function Checkout() {
                 className="disabled:opacity-50 mt-5 mr-5 w-full  inline-block bg-black text-white px-5 py-3 text-xs font-medium uppercase tracking-wide"
               >
                 Checkout
+              </button>
+              <button
+                disabled={
+                  cartItems.length === 0 || !checkoutFormData.shippingAddress
+                }
+                onClick={handleCODCheckout}
+                className="disabled:opacity-50 mt-5 mr-5 w-full  inline-block bg-black text-white px-5 py-3 text-xs font-medium uppercase tracking-wide"
+              >
+                Cash On Delivery
               </button>
             </div>
           </div>

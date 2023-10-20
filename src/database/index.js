@@ -7,11 +7,11 @@ const configOptions = {
 
 const connectToDB = async () => {
   const connectionUrl =
-    "your-mongodb-url";
+    "mongodb+srv://admin:admin@resto.dznyta0.mongodb.net/restoorant?retryWrites=true&w=majority";
 
   mongoose
     .connect(connectionUrl, configOptions)
-    .then(() => console.log("Ecommerce database connected successfully!"))
+    .then(() => console.log("Restoorant database connected successfully!"))
     .catch((err) =>
       console.log(`Getting Error from DB connection ${err.message}`)
     );
